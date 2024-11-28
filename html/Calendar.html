@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointments</title>
+    <link rel="stylesheet" href="../css/styleDash.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400&display=swap" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<link href='../lib/main.css' rel='stylesheet' />
+<script src='../lib/main.js'></script>
+<script src="https://smtpjs.com/v3/smtp.js"></script>
+<script>
+  var status=false;
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+	var today = new Date();
+	var dd = String(today.getDate()).padStart(2, '0');
+	var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+	var yyyy = today.getFullYear();
+	today = yyyy + '-' + mm + '-' + dd;
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      headerToolbar: {
+        left: 'prev,next addEventButton',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+      },
+      initialDate: today,
+      navLinks: true, // can click day/week names to navigate views
+      businessHours: true, // display business hours
+      editable: true,
+      selectable: true,
+	  allDaySlot: true,
+	  customButtons: {
+        addEventButton: {
+          text: 'add appointment',
+          click: function() {
+            var dateStr = prompt('Enter Start date and time in YYYY-MM-DD 00:00:00 format');
+            var date = new Date(dateStr); // will be in local time
+			var dateEnd = prompt('Enter end date and time in YYYY-MM-DD 00:00:00 format');
+            var endDate = new Date(dateEnd); // will be in local time
+			var id = prompt('Enter Email of patient');
+			var title = prompt('Enter Name/Phone No of patient');
+            if (!isNaN(date.valueOf()) && (!title !== '')) { // valid?
+			  let cookieObj = {
+			    id: id,
+                title: title+ "  "+ id,
+                start: date,
+				end: endDate
+				};
+              calendar.addEvent(cookieObj);
+				
+              alert('New Appointmnt added');
+            } else {
+              alert('Invalid data.');
+            }
+          }
+        }
+      }, 
+      events: [
+        {
+		  id: "Rifat.jahan2305@gmail.com",
+		  title: "MRI scan" + "  Daniel Ramos",
+          start: today+'T10:30',
+          end: today+'T10:45'
+        },
+        {
+		  id: "Rudhisha013@gmail.com",
+          title: "CT scan" + "  Sara Martinez",
+          start: today+'T13:30',
+          end: today+'T13:45'
+        },
+		{
+		  id: "Mrjalal266@gmail.com",
+          title: "MRI scan" + "  Thomas Müller",
+          start: today+'T14:30',
+          end: today+'T14:45'
+        },
+        {
+		  id: "rudhisha013@gmail.com",
+          title: "MRI scan" + "   Evelyn Scott",
+          start: '2021-07-06T09:30',
+          end: '2021-07-06T09:45',
+        },
+		 {
+		  id: "Rifat.jahan2305@gmail.com",
+		  title: "CT scan" + "   Anna Sterling",
+          start: '2021-07-06T11:30',
+          end: '2021-07-06T11:45',
+        },
+        {
+		  id: "Rudhisha013@gmail.com",
+          title: "CT scan" + "  Serge Gnabry",
+          start: '2021-07-07T12:30',
+          end: '2021-07-07T12:45',
+        },
+		{
+		  id: "Mrjalal266@gmail.com",
+          title: "MRI scan" + "  Kylian Reitmeier",
+          start:'2021-07-15T10:30',
+          end: '2021-07-15T10:45',
+        },
+        {
+		  id: "rudhisha013@gmail.com",
+          title: "CT scan" + "   Helena Müller",
+          start: '2021-07-15T09:30',
+          end: '2021-07-15T09:45'
+
+          
+        },
+		 {
+		  id: "Rifat.jahan2305@gmail.com",
+		  title: "MRI scan" + "   George Bush",
+          start: '2021-08-03T10:30',
+          end: '2021-08-03T10:45'
+        },
+        {
+		  id: "Rudhisha013@gmail.com",
+          title: "CT scan" + "   Xavier Smith",
+          start: '2021-07-30T11:30',
+          end: '2021-07-30T11:45'
+        },
+		{
+		  id: "Mrjalal266@gmail.com",
+          title: "MRI scan" + "   Francine Louis",
+          start: '2021-08-01T12:30',
+          end:'2021-08-01T12:45'
+        },
+        {
+		  id: "rudhisha013@gmail.com",
+          title: "CT scan" + "  Harry Kane",
+          start: '2021-08-28T11:30',
+          end: '2021-08-28T11:45' 
+        }
+      ],
+	  eventDragStart: function(){
+		document.getElementById('box').style.display="block";
+		status=false;
+	  },
+	  eventDrop: function(info) {
+            var eventObj = info.event;
+			status=true;
+                if (eventObj.id) {
+				    Email.send({
+						Host: "smtp.gmail.com",
+						Username : "Singhkaursukhdeep@gmail.com",
+						Password : "",
+						To : eventObj.id,
+						From : "Singhkaursukhdeep@gmail.com",
+						Subject : "Appointment Rescheduled",
+						Body : "Hello! Your Appointment has been rescheduled. New Time is:"+eventObj.start+". Thank you!",
+						}).then(
+							message => console.log("Rescheduled Time's email has been sent to patient successfully")
+						);
+					}
+	  }
+    });
+
+    calendar.render();
+	
+  });
+
+function talk(){
+  var know = {
+    "Y" : "Reason of Reschedule? emergency / other reason?",
+    "N" : "Ok! Have a Nice Day!!",
+	"y" : "Reason of Reschedule? emergency / other reason?",
+    "n" : "Ok! Have a Nice Day!!",
+    "emergency" : "Which room has emergency? <br>CT<br>MRI<br>Ultrasound",
+    "other reason" : "Ok! You can reschedule according to your personal reason.",
+	"Emergency" : "Which room has emergency? <br>CT<br>MRI<br>Ultrasound",
+    "Other Reason" : "Ok! You can reschedule according to your personal reason.",
+	"CT": "from the previous learning or history it is suggested that you reschedule for 15 minutes",
+	"MRI": "from the previous learning or history it is suggested that you reschedule for 30 minutes",
+	"Ultrasound": "from the previous learning or history it is suggested that you reschedule for 20 minutes",
+	"ct": "from the previous learning or history it is suggested that you reschedule for 15 minutes",
+	"mri": "from the previous learning or history it is suggested that you reschedule for 30 minutes",
+	"ultrasound": "from the previous learning or history it is suggested that you reschedule for 20 minutes",
+	"OK": " Will meet soon. TC:)..",
+	"ok": " Will meet soon. TC:)..",
+	"bye" : "Bye",
+    "Bye" : "Bye"
+  };
+  var user = document.getElementById('userBox').value;
+  var messages = document.getElementById('messages');
+  var q=document.getElementById('chatLog').innerHTML;
+  if (user in know) {
+	let p1 = document.createElement('p');
+	p1.innerHTML = '<b>'+q+'</b>';
+	messages.appendChild(p1);
+	let p2 = document.createElement('p');
+	p2.innerHTML = user;
+	messages.appendChild(p2);
+    document.getElementById('chatLog').innerHTML = know[user] + "<br>";
+	document.getElementById('userBox').value = "";
+  }
+  else{
+	if(user==="x"){
+		while (messages.lastElementChild) {
+			messages.removeChild(messages.lastElementChild);
+		}
+		document.getElementById('box').style.display="none";
+		document.getElementById('chatLog').innerHTML = "Do you want to Reschedule Appointment? Y/N ";
+		document.getElementById('userBox').value = "";
+		if(status){
+		setTimeout(function(){ alert("Rescheduled Time's email has been sent to patient successfully"); }, 1000);
+			status=false;
+			}
+		
+	}else{
+    document.getElementById('chatLog').innerHTML = q;
+	document.getElementById('userBox').value = "";}
+  }
+}
+</script>
+<style>
+
+  body {
+    margin: 40px 10px;
+    padding: 0;
+    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+    font-size: 14px;
+  }
+
+  #calendar {
+    max-width: 80%;
+	margin-left: 170px;
+    border-radius: 6px;
+            
+  }
+
+</style>
+</head>
+<body>
+<div class="main-menu">
+        <ul>
+            <section class="General">
+                <!-- <li class="menu-item"><i class="fa fa-home"></i>DashBoard</li> -->
+                <li class="menu-item"><i class="fa fa-bell"></i>Appointments</li>
+                <!-- <li class="menu-item"><i class="fa fa-paper-plane"></i>Messages</li> -->
+            </section>
+            <section class="links">
+                <!-- <li class="menu-item"><i class="fa fa-calander"></i>Analytics</li> -->
+                <li class="menu-item" onclick="logout();"><i class="fa fa-code"></i>Logout</li>
+            </section>
+
+        </ul>
+    </div>
+    <div >
+            <center>
+                <h1>RADIOLOGY EINFACH</h1>
+                <br>
+            </center>
+</div>
+  <div id='calendar'></div>
+  <div class="box" id="box" style="display: none">
+      <div class="top" style="color:white; padding-bottom: 20px">
+        <h1>Chat Bot</h1>
+		<h3 style="color:white; padding-bottom: 20px">Type "x" to exit the chatbot</h3>
+      </div>
+      <div class="mid">
+        <div class="chat">
+          <p id="chatLog"> Do you want to Reschedule Appointment? Y/N </p>
+        </div>
+      </div>
+      <div class="input">
+        <input type="text" id="userBox" onkeydown="if(event.keyCode == 13){ talk()}" placeholder="Type your Question">
+      </div>
+	  <div class="mid">
+		<div  id="messages">
+		
+		</div>
+	  </div>
+    </div>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    	<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    	<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+    	<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-database.js"></script>
+    	<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-analytics.js"></script>
+    	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+        <script src="../js/calJs.js"></script>
+    	<script src="../js/js-bootstrap/bootstrap.bundle.min.js"></script>
+    	<script src="../js/js-bootstrap/bootstrap.min.js"></script>
+
+    	<script src="../js/DBconnection.js"></script>
+    	<script src="../js/RetrieveUsers.js"></script>
+    	<script src="../js/CheckUser.js"></script>
+    	<script src="../js/Logout.js"></script>
+</body>
+</html>

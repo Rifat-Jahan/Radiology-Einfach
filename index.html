@@ -1,0 +1,97 @@
+<html>
+
+<head>
+   <title> Transparent Login Form Design </title>
+   <link rel="stylesheet" type="text/css" href="css/styleIndex.css">
+</head>
+
+<body onload="checkUser()">
+   <section class="carousel" aria-label="Gallery">
+      <div class="header">
+         <!-- <img src="img/avatar.png" class="avatar"> -->
+         <h1>RADIOLOGY EINFACH</h1>
+       </div>
+      <ol class="carousel__viewport">
+         <li id="carousel__slide1" tabindex="0" class="carousel__slide">
+            <div class="carousel__snapper">
+               <a href="#carousel__slide4" class="carousel__prev">Go to last slide</a>
+               <a href="#carousel__slide2" class="carousel__next">Go to next slide</a>
+            </div>
+         </li>
+         <li id="carousel__slide2" tabindex="0" class="carousel__slide">
+            <div class="carousel__snapper"></div>
+            <a href="#carousel__slide1" class="carousel__prev">Go to previous slide</a>
+            <a href="#carousel__slide3" class="carousel__next">Go to next slide</a>
+         </li>
+         <li id="carousel__slide3" tabindex="0" class="carousel__slide">
+            <div class="carousel__snapper"></div>
+            <a href="#carousel__slide2" class="carousel__prev">Go to previous slide</a>
+            <a href="#carousel__slide4" class="carousel__next">Go to next slide</a>
+         </li>
+         <li id="carousel__slide4" tabindex="0" class="carousel__slide">
+            <div class="carousel__snapper"></div>
+            <a href="#carousel__slide3" class="carousel__prev">Go to previous slide</a>
+            <a href="#carousel__slide5" class="carousel__next">Go to next slide</a>
+         </li>
+         <li id="carousel__slide5" tabindex="0" class="carousel__slide">
+            <div class="carousel__snapper"></div>
+            <a href="#carousel__slide5" class="carousel__prev">Go to previous slide</a>
+            <a href="#carousel__slide1" class="carousel__next">Go to first slide</a>
+         </li>
+      </ol>
+      <aside class="carousel__navigation">
+         <ol class="carousel__navigation-list">
+            <li class="carousel__navigation-item">
+               <a href="#carousel__slide1" class="carousel__navigation-button">Go to slide 1</a>
+            </li>
+            <li class="carousel__navigation-item">
+               <a href="#carousel__slide2" class="carousel__navigation-button">Go to slide 2</a>
+            </li>
+            <li class="carousel__navigation-item">
+               <a href="#carousel__slide3" class="carousel__navigation-button">Go to slide 3</a>
+            </li>
+            <li class="carousel__navigation-item">
+               <a href="#carousel__slide4" class="carousel__navigation-button">Go to slide 4</a>
+            </li>
+            <li class="carousel__navigation-item">
+               <a href="#carousel__slide5" class="carousel__navigation-button">Go to slide 5</a>
+            </li>
+         </ol>
+      </aside>
+   </section>
+   <div class="login-box">
+      <!-- <form> -->
+         <p>Email</p>
+         <input type="text" id="loginId" name="Email" placeholder="Enter Email">
+         <p>Password</p>
+         <input type="password" id="loginPassword" name="password" placeholder="Enter Password">
+         
+          <br>
+         <input type="checkbox" required>
+        
+         <center>Keep me Logged in</center>
+         <input type="submit" name="submit" onclick="login()"  value="Login">
+         <div class="forget_newUser">
+            <a href="html/ForgetPassword.html">Forget Password ?</a>
+            <P align=right><a href="html/Register.html">New User? Register</a></P>
+         </div>
+         
+      <!-- </form> -->
+
+      <!-- <script src="../js/js-bootstrap/bootstrap.min.js"></script> -->
+      <!-- <script src="../js/js-bootstrap/bootstrap.bundle.min.js"></script> -->
+     
+      <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-database.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-analytics.js"></script>
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  
+    
+       <script src="js/DBconnection.js"></script>
+      <script src="js/CheckUser.js"></script>
+      <script src="js/Login.js"></script>
+      <script src="js/RetrieveUsers.js"></script>
+</body>
+
+</html>

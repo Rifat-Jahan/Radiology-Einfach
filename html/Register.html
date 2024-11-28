@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<!-- Designined by CodingLab - youtube.com/codinglabyt -->
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <title> Registration| CodingLab </title>
+  <link rel="stylesheet" href="../css/styleRegister.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body onload="checkUser()">
+  <div class="header">
+    <!-- <img src="../img/avatar.png" class="avatar"> -->
+  <center>
+    <h1>RADIOLOGY EINFACH</h1>
+  </center>
+  
+  </div>
+  <div class="center">
+    <div class="container">
+      <div class="title">Lets get you all set up you can verify your personal account and begin setting up your profile
+      </div>
+      <div class="content">
+        <!-- <form action="#"> -->
+          <div class="form">
+          <div class="user-details">
+            <div class="input-box">
+              <span class="details">First Name</span>
+              <input type="text" id="firstName" placeholder="Enter your name" required>
+            </div>
+            <div class="input-box">
+              <span class="details">Last name</span>
+              <input type="text" id="lastName" placeholder="Enter your username" required>
+            </div>
+            <div class="input-box">
+              <span class="details">Email</span>
+              <input type="text" id="uniqueMail" placeholder="Enter your email" required>
+            </div>
+            <div class="input-box">
+              <span class="details">Phone Number</span>
+              <input type="text" id="number" placeholder="Enter your number" required>
+            </div>
+            
+            <div class="input-box">
+              <span class="details">Practice address</span>
+              <input type="text" id="addressPractice" placeholder="Practice address" required>
+            </div>
+            <div class="input-box">
+              <span class="details">License Number</span>
+              <input type="text" id="postCode" placeholder="License Number" required>
+            </div>
+            <div class="input-box">
+              <span class="details">Password</span>
+              <input type="password" id="password" placeholder="Enter your password" required>
+            </div>
+
+           
+
+            <div class="input-box">
+              <span class="details">Confirm Password</span>
+              <input type="password" id="confirm_password" placeholder="Confirm password" required>
+              <span id='message'></span>
+            </div>
+            
+          </div>
+          <center>
+            <input type="checkbox" required> I agree to the terms of use and privacy policy</br>
+            <button class="btn success" onclick="signUp();">Sign Up</button>
+          </center>
+        </div>
+        <!-- </form> -->
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-analytics.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  
+  <script src="../js/js-bootstrap/bootstrap.bundle.min.js"></script>
+  <script src="../js/js-bootstrap/bootstrap.min.js"></script>
+  
+  
+
+  <script src="../js/DBconnection.js"></script>
+  <script src="../js/RetrieveUsers.js"></script>
+  <script src="../js/CheckUser.js"></script>
+  <script src="../js/Signup.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script>
+    $('#password, #confirm_password').on('keyup', function () {
+  if ($('#password').val() == $('#confirm_password').val()) {
+    $('#message').html('Matching').css('color', 'green');
+  } else 
+    $('#message').html('Not Matching').css('color', 'red');
+});
+  </script>
+
+</body>
+
+</html>
